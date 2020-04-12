@@ -89,9 +89,9 @@ int initHelper(struct motor *mot, char config[7]){
         int r = (*mot).config1.r;
         // set the pins
         printf("e= %d,f= %d,r=%d",e,f,r);
-        PinMode((*mot).config1.e,OUTPUT);
-        PinMode((*mot).config1.f,OUTPUT);
-        PinMode((*mot).config1.r,OUTPUT);
+        pinMode((*mot).config1.e,OUTPUT);
+        pinMode((*mot).config1.f,OUTPUT);
+        pinMode((*mot).config1.r,OUTPUT);
         softPwmCreate((*mot).config1.e,0,100);//set PWM channal with range
         softPwmWrite((*mot).config1.e,0);
 
@@ -110,9 +110,9 @@ int initHelper(struct motor *mot, char config[7]){
         // set the pins
         printf("e= %d,f= %d,r=%d",e,f,r);
         // setting pins
-        PinMode(mot->config1.e,OUTPUT);
-        PinMode(mot->config1.f,OUTPUT);
-        PinMode(mot->config1.r,OUTPUT);
+        pinMode(mot->config1.e,OUTPUT);
+        pinMode(mot->config1.f,OUTPUT);
+        pinMode(mot->config1.r,OUTPUT);
         softPwmCreate(mot->config1.e,0,100);//set PWM channal with range
 
         // PinMode(mot->config1.e,PWM_OUTPUT);
