@@ -77,7 +77,7 @@ int init(char motor[6],char config[7]){
 }
 
 int initHelper(struct motor *mot, char config[7]){
-    if(wiringPiSetUp()== -1){
+    if(wiringPiSetup()== -1){
 
         printf("WiringPiSetUp failed");
         return-1;
