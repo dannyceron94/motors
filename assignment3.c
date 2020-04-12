@@ -38,6 +38,7 @@ struct motor *motor4Ptr = &motor4;
 int init(char[6],char[7]);
 int initHelper(struct motor *, char[7]);
 int foward(struct motor *,int,char[7]);
+int stop(struct motor *, char[7]);
 
 
 int main(void){
@@ -135,6 +136,25 @@ int foward(struct motor &motr, int speed,char[7] config){
     if(strcmp(config,"config2")){
         softPwmWrite(mot->config2.e,speed);
         digitalWrite(mot->config2.f,High)
+        digitalWrite(mot->config2.r,LOW)
+        return 0;
+    }
+    return -1;
+
+
+}
+
+int stop(truct motor &motr,char[7] config){
+    // pwmWrite(mot->config.e,speed)
+    if(strcmp(config,"config1")){
+        softPwmWrite(mot->config1.e,0);
+        digitalWrite(mot->config1.f,LOW)
+        digitalWrite(mot->config1.r,LOW)
+        return 0;
+    }
+    if(strcmp(config,"config2")){
+        softPwmWrite(mot->config2.e,0);
+        digitalWrite(mot->config2.f,LOW)
         digitalWrite(mot->config2.r,LOW)
         return 0;
     }
