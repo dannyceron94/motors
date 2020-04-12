@@ -130,13 +130,13 @@ int foward(struct motor *mot, int speed,char config[7]){
     // pwmWrite(mot->config.e,speed)
     if(strcmp(config,"config1")){
         softPwmWrite(mot->config1.e,speed);
-        digitalWrite(mot->config1.f,High);
+        digitalWrite(mot->config1.f,HIGH);
         digitalWrite(mot->config1.r,LOW);
         return 0;
     }
     if(strcmp(config,"config2")){
         softPwmWrite(mot->config2.e,speed);
-        digitalWrite(mot->config2.f,High);
+        digitalWrite(mot->config2.f,HIGH);
         digitalWrite(mot->config2.r,LOW);
         return 0;
     }
