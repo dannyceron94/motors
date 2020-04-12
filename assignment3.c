@@ -23,11 +23,11 @@ struct motor
     
     int arrow;
 };
-
-struct motor motor1 = {"motor1",11,15,13,11,13,15,4};
+                        // pins 11,15,13,11,13,15,4
+struct motor motor1 = {"motor1",0,3,2,0,2,3,4};
 struct motor *motor1Ptr = &motor1;
 
-struct motor motor2 = {"motor2",22,16,18,22,18,16,3};
+struct motor motor2 = {"motor2",6,4,5,6,5,4,3};
 struct motor *motor2Ptr = &motor2;
 
 struct motor motor3 = {"motor3",11,15,13,11,13,15,4};
