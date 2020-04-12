@@ -6,6 +6,7 @@
 #include <wiringPi.h>
 #include <time.h>
 #include <string.h>
+#include <stdio.h>
 
 struct config
 {
@@ -47,8 +48,8 @@ int main(void){
     printf("check = %d\n",m1);
     int m2 = init("motor2","config2");
     printf("check = %d\n",m2);
-    m1 = foward(&motor1,20,"config1")
-    m2 = foward(&motor2,50,"config2") 
+    m1 = foward(&motor1,20,"config1");
+    m2 = foward(&motor2,50,"config2");
     return 0;
 }
 
@@ -78,7 +79,7 @@ int init(char motor[6],char config[7]){
 int initHelper(struct motor *mot, char config[7]){
     if(wiringPiSetUp()== -1){
         printf("WiringPiSetUp failed");
-        return-1
+        return-1;
     }
     // using pointer type 1
     if(strcmp(config,"config1")==0){
@@ -96,9 +97,9 @@ int initHelper(struct motor *mot, char config[7]){
         // PinMode((*mot).config1.e,PWM_OUTPUT);
         // pwmWrite((*mot).config.e,0)
         softPwmWrite((*mot).config1.e,0);
-        digitalWrite((*mot).config.f,LOW);
-        digitalWrite((*mot).config.r,LOW);
-        return = 0;
+        digitalWrite((*mot).config1.f,LOW);
+        digitalWrite((*mot).config1.r,LOW);
+        return 0;
     }
     // using pointer type 2
     if(strcmp(config,"config2")==0){
@@ -115,28 +116,27 @@ int initHelper(struct motor *mot, char config[7]){
 
         // PinMode(mot->config1.e,PWM_OUTPUT);
         // pwmWrite(mot->config.e,0)
-        softPwmWrite(mot->config2.e,0)
-        digitalWrite(mot->config2.f,LOW)
-        digitalWrite(mot->config2.r,LOW)
-        return = 0;
+        softPwmWrite(mot->config2.e,0);
+        digitalWrite(mot->config2.f,LOW);
+        digitalWrite(mot->config2.r,LOW);
     }
     else{printf("invalid config");}
     return -1;
 
 }
 
-int foward(struct motor &motr, int speed,char[7] config){
+int foward(struct motor &mot, int speed,char[7] config){
     // pwmWrite(mot->config.e,speed)
     if(strcmp(config,"config1")){
         softPwmWrite(mot->config1.e,speed);
-        digitalWrite(mot->config1.f,High)
-        digitalWrite(mot->config1.r,LOW)
+        digitalWrite(mot->config1.f,High);
+        digitalWrite(mot->config1.r,LOW);
         return 0;
     }
     if(strcmp(config,"config2")){
         softPwmWrite(mot->config2.e,speed);
-        digitalWrite(mot->config2.f,High)
-        digitalWrite(mot->config2.r,LOW)
+        digitalWrite(mot->config2.f,High);
+        digitalWrite(mot->config2.r,LOW);
         return 0;
     }
     return -1;
@@ -144,18 +144,18 @@ int foward(struct motor &motr, int speed,char[7] config){
 
 }
 
-int stop(truct motor &motr,char[7] config){
+int stop(truct motor &mot,char[7] config){
     // pwmWrite(mot->config.e,speed)
     if(strcmp(config,"config1")){
         softPwmWrite(mot->config1.e,0);
-        digitalWrite(mot->config1.f,LOW)
-        digitalWrite(mot->config1.r,LOW)
+        digitalWrite(mot->config1.f,LOW);
+        digitalWrite(mot->config1.r,LOW);
         return 0;
     }
     if(strcmp(config,"config2")){
         softPwmWrite(mot->config2.e,0);
-        digitalWrite(mot->config2.f,LOW)
-        digitalWrite(mot->config2.r,LOW)
+        digitalWrite(mot->config2.f,LOW);
+        digitalWrite(mot->config2.r,LOW);
         return 0;
     }
     return -1;
