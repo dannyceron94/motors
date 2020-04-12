@@ -125,7 +125,7 @@ int initHelper(struct motor *mot, char config[7]){
 
 }
 
-int foward(struct motor &mot, int speed,char[7] config){
+int foward(struct motor *mot, int speed,char[7] config){
     // pwmWrite(mot->config.e,speed)
     if(strcmp(config,"config1")){
         softPwmWrite(mot->config1.e,speed);
@@ -144,7 +144,7 @@ int foward(struct motor &mot, int speed,char[7] config){
 
 }
 
-int stop(truct motor &mot,char[7] config){
+int stop(truct motor &mot,char config[7]){
     // pwmWrite(mot->config.e,speed)
     if(strcmp(config,"config1")){
         softPwmWrite(mot->config1.e,0);
