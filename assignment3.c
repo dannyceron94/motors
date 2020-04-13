@@ -39,6 +39,7 @@ struct motor *motor4Ptr = &motor4;
 int init(char[6],char[7]);
 int initHelper(struct motor *, char[7]);
 int foward(struct motor *,int,char[7]);
+int reverse(struct motor *,int,char[7]);
 int stop(struct motor *, char[7]);
 
 
@@ -48,8 +49,38 @@ int main(void){
     printf("check = %d\n",m1);
     int m2 = init("motor2","config2");
     printf("check = %d\n",m2);
-    m1 = foward(&motor1,20,"config1");
-    m2 = foward(&motor2,50,"config2");
+    for(int i=0;i<4;i++){
+        
+        if(i ==1){
+            printf("\nforward\n");
+            m1 = foward(&motor1,25*i,"config1");
+            m2 = foward(&motor2,25*i,"config2");
+            
+            sleep(5);
+            m1 = stop(&motor1,"config1");
+            m2 = stop(&motor2,"config2");
+            printf("\nstop\n");
+            sleep(2);
+            }
+        if(i ==2){
+            printf("\nreverse\n");
+            m1 = reverse(&motor1,10*i,"config1");
+            m2 = reverse(&motor2,10*i,"config2");
+            
+            sleep(5);
+            printf("\nstop\n");
+            m1 = stop(&motor1,"config1");
+            m2 = stop(&motor2,"config2");
+            sleep(2);
+            }
+        }
+    
+    //m1 = foward(&motor1,20,"config1");
+    //m2 = foward(&motor2,50,"config2");
+    //sleep(5);
+    //m1 = stop(&motor1,"config1");
+    //m2 = stop(&motor2,"config2");
+    
     return 0;
 }
 
@@ -74,10 +105,11 @@ int init(char motor[6],char config[7]){
     }
     return check;
     
+    
 }
 
 int initHelper(struct motor *mot, char config[7]){
-    if(wiringPiSetup()== -1){
+    if(wiringPiSetup()<0){
 
         printf("WiringPiSetUp failed");
         return-1;
@@ -120,6 +152,7 @@ int initHelper(struct motor *mot, char config[7]){
         softPwmWrite(mot->config2.e,0);
         digitalWrite(mot->config2.f,LOW);
         digitalWrite(mot->config2.r,LOW);
+        return 0;
     }
     else{printf("invalid config");}
     return -1;
@@ -141,8 +174,21 @@ int foward(struct motor *mot, int speed,char config[7]){
         return 0;
     }
     return -1;
-
-
+}
+int reverse(struct motor *mot,int speed,char config[7]){
+    if(strcmp(config,"config1")){
+        softPwmWrite(mot->config1.e,speed);
+        digitalWrite(mot->config1.f,LOW);
+        digitalWrite(mot->config1.r,HIGH);
+        return 0;
+    }
+    if(strcmp(config,"config2")){
+        softPwmWrite(mot->config2.e,speed);
+        digitalWrite(mot->config2.f,LOW);
+        digitalWrite(mot->config2.r,HIGH);
+        return 0;
+    }
+    return -1;
 }
 
 int stop(struct motor *mot,char config[7]){
