@@ -49,7 +49,7 @@ int main(void){
     printf("check = %d\n",m1);
     int m2 = init("motor2","config2");
     printf("check = %d\n",m2);
-    for(int i=0;i<4;i++){
+    for(int i=0;i<=4;i++){
         
         if(i ==1){
             printf("\nforward\n");
@@ -66,6 +66,30 @@ int main(void){
             printf("\nreverse\n");
             m1 = reverse(&motor1,10*i,"config1");
             m2 = reverse(&motor2,10*i,"config2");
+            
+            sleep(5);
+            printf("\nstop\n");
+            m1 = stop(&motor1,"config1");
+            m2 = stop(&motor2,"config2");
+            sleep(2);
+            }
+        if(i ==3){
+            //turn left
+            printf("\nleft\n");
+            m1 = foward(&motor1,10*i,"config1");
+            m2 = reverse(&motor2,10*i,"config2");
+            
+            sleep(5);
+            printf("\nstop\n");
+            m1 = stop(&motor1,"config1");
+            m2 = stop(&motor2,"config2");
+            sleep(2);
+            }
+            if(i ==4){
+            //turn right
+            printf("\nright\n");
+            m1 = reverse(&motor1,10*i,"config1");
+            m2 = foward(&motor2,10*i,"config2");
             
             sleep(5);
             printf("\nstop\n");
