@@ -59,7 +59,7 @@ int main(void){
             sleep(5);
             m1 = stop(&motor1,"config1");
             m2 = stop(&motor2,"config2");
-            printf("\nstop\n")
+            printf("\nstop\n");
             sleep(2);
             }
         if(i ==2){
