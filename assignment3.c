@@ -7,14 +7,15 @@
 #include <time.h>
 #include <string.h>
 #include <stdio.h>
-
+// struct for each motor configurations
 struct config
 {
     int e;
     int f;
     int r;
 };
-
+// struct for storing the data of the each motor.
+// name, modulation pin, and output pins for making the motors run.
 struct motor
 {
     char motor[6];
@@ -23,7 +24,9 @@ struct motor
     
     int arrow;
 };
-                        // pins 11,15,13,11,13,15,4
+
+// motor variable initialization
+                     // pins 11,15,13,11,13,15,4
 struct motor motor1 = {"motor1",0,3,2,0,2,3,4};
 struct motor *motor1Ptr = &motor1;
 
@@ -35,6 +38,7 @@ struct motor *motor3Ptr = &motor3;
 
 struct motor motor4 = {"motor4",22,16,18,22,18,16,3};
 struct motor *motor4Ptr = &motor4;
+
 
 int init(char[6],char[7]);
 int initHelper(struct motor *, char[7]);
@@ -98,16 +102,10 @@ int main(void){
             sleep(2);
             }
         }
-    
-    //m1 = foward(&motor1,20,"config1");
-    //m2 = foward(&motor2,50,"config2");
-    //sleep(5);
-    //m1 = stop(&motor1,"config1");
-    //m2 = stop(&motor2,"config2");
-    
     return 0;
 }
-
+// params motor name, motor configuration
+// it calls the initHelper function to set up the pins for the motor being initialized 
 int init(char motor[6],char config[7]){
     int check =-1;
     if( motor == NULL ||  config == NULL ||(strcmp(motor,"")==0) || (strcmp(config,"")==0)){
@@ -131,13 +129,15 @@ int init(char motor[6],char config[7]){
     
     
 }
-
+// params: pointer to the motor being initialized, configuration of the motor
+// it configures the pins the motor will use.
 int initHelper(struct motor *mot, char config[7]){
     if(wiringPiSetup()<0){
 
         printf("WiringPiSetUp failed");
         return-1;
     }
+    // configuration 1
     // using pointer type 1
     if(strcmp(config,"config1")==0){
         int e = (*mot).config1.e;
@@ -158,6 +158,7 @@ int initHelper(struct motor *mot, char config[7]){
         digitalWrite((*mot).config1.r,LOW);
         return 0;
     }
+    // configuration 2
     // using pointer type 2
     if(strcmp(config,"config2")==0){
         int e = mot->config2.e;
@@ -182,7 +183,8 @@ int initHelper(struct motor *mot, char config[7]){
     return -1;
 
 }
-
+// params: struc motor pointer, int speed value, string motor configuration.
+// sets the configuration pins to high voltage and the pin module to the speed value.
 int foward(struct motor *mot, int speed,char config[7]){
     // pwmWrite(mot->config.e,speed)
     if(strcmp(config,"config1")){
@@ -199,6 +201,8 @@ int foward(struct motor *mot, int speed,char config[7]){
     }
     return -1;
 }
+// params: struc motor pointer, int speed value, string motor configuration.
+// sets the configuration pins to high voltage and the pin module to the speed value.
 int reverse(struct motor *mot,int speed,char config[7]){
     if(strcmp(config,"config1")){
         softPwmWrite(mot->config1.e,speed);
@@ -214,7 +218,8 @@ int reverse(struct motor *mot,int speed,char config[7]){
     }
     return -1;
 }
-
+// params: struc motor pointer, int speed value, string motor configuration.
+// sets the configuration pins to 0 voltage and the pin module to 0.
 int stop(struct motor *mot,char config[7]){
     // pwmWrite(mot->config.e,speed)
     if(strcmp(config,"config1")){
